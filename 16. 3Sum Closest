@@ -1,0 +1,24 @@
+class Solution(object):
+    def threeSumClosest(self, nums, target):
+        """
+        :type nums: List[int]
+        :type target: int
+        :rtype: int
+        """
+        closest_num = 2147483648
+        smallest_diff = 2147483648
+        nums3 = []
+        for idx1,num1 in enumerate(nums):
+            for idx2,num2 in enumerate(nums[idx1+1:]):
+                sum_of_1_2_and_neg_tar = num1+num2-target
+                for idx3,num3 in enumerate(nums[idx1+idx2+2:]):
+                    sum_sqrd = (sum_of_1_2_and_neg_tar+num3)*(sum_of_1_2_and_neg_tar+num3)
+                    if sum_sqrd < smallest_diff:
+                        smallest_diff = sum_sqrd
+                        closest_num = num1+num2+num3
+                        if smallest_diff == 0:
+                            return closest_num
+                        #nums3 = [num1,num2,num3]
+                    #print(smallest_diff)
+                    #print(nums3)
+        return closest_num
