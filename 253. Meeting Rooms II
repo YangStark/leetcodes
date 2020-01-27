@@ -1,0 +1,25 @@
+class Solution:
+    def minMeetingRooms(self, intervals: List[List[int]]) -> int:
+        endTimeList = []
+        rt_int = 0
+        intervals.sort()
+        #print(intervals)
+        for idx,itvl in enumerate(intervals):
+            if rt_int == 0:
+                endTimeList.append(itvl[1])
+                rt_int += 1
+                continue
+            startTime = itvl[0]
+            endTime = itvl[1]
+            newRoom = True
+            for prevEndTime_idx in range(len(endTimeList)):
+                prevEndTime = endTimeList[prevEndTime_idx]
+                if startTime >= prevEndTime:
+                    endTimeList[prevEndTime_idx] = endTime
+                    newRoom = False
+                    break
+            if newRoom:
+                endTimeList.append(endTime)
+                rt_int += 1
+            #print(idx,endTimeList)
+        return rt_int
